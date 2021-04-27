@@ -4,8 +4,6 @@ from django.contrib.auth.models import AbstractUser
 from libs.Id_card_validator import id_validator
 
 
-# from
-
 class User(AbstractUser):
     phone_num = models.CharField(max_length=20, unique=True, blank=True, verbose_name='手机号码', db_index=True)
     real_name = models.CharField(max_length=255, verbose_name='真实姓名')
