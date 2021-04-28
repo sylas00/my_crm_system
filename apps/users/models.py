@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser
 
 from libs.Id_card_validator import id_validator
+from django_minio_backend import MinioBackend, iso_date_prefix
 
 
 class User(AbstractUser):
@@ -17,7 +18,8 @@ class User(AbstractUser):
                                  verbose_name='用户状态')
     is_admin = models.BooleanField(default=False, verbose_name='是否管理员')
     last_login = models.DateTimeField(null=True, blank=True, verbose_name='上次登录时间')
-    # avatar = models.ForeignKey(AvatarModel, on_delete=models.CASCADE, related_name='account', null=True, blank=True, default=docker-compose.yaml, verbose_name='头像')
+    avatar = models.FileField(storage=MinioBackend(bucket_name='django-backend-dev-private'),
+                              upload_to=iso_date_prefix, verbose_name='上传')
     lottery_times = models.IntegerField(default=10, null=True, blank=True, verbose_name='抽奖次数')
 
     class Meta:

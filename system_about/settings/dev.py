@@ -41,8 +41,27 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django_minio_backend',
     'users',
 ]
+
+from datetime import timedelta
+from typing import List, Tuple
+
+MINIO_ENDPOINT = 'localhost:9000'
+MINIO_ACCESS_KEY = 'minioadmin'
+MINIO_SECRET_KEY = 'minioadmin'
+MINIO_USE_HTTPS = False
+MINIO_URL_EXPIRY_HOURS = timedelta(days=1)  # Default is 7 days (longest) if not defined
+MINIO_CONSISTENCY_CHECK_ON_START = True
+MINIO_PRIVATE_BUCKETS = [
+    'django-backend-dev-private',
+]
+MINIO_PUBLIC_BUCKETS = [
+    'django-backend-dev-public',
+]
+MINIO_POLICY_HOOKS: List[Tuple[str, dict]] = []
+
 # 指定一下自定义user作为系统的user
 AUTH_USER_MODEL = 'users.User'
 
