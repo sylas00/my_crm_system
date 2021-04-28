@@ -8,10 +8,15 @@ https://docs.djangoproject.com/en/3.2/topics/settings/
 
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.2/ref/settings/
+
+从 global_settings.py 载入默认设置.
+从指定的 settings 文件载入用户设置, 需要时覆盖掉默认设置.
 """
 import os
 from pathlib import Path
 import sys
+from datetime import timedelta
+from typing import List, Tuple
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 
@@ -41,26 +46,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    # minio储存后端
     'django_minio_backend',
     'users',
+    'upload',
 ]
-
-from datetime import timedelta
-from typing import List, Tuple
-
-MINIO_ENDPOINT = 'localhost:9000'
-MINIO_ACCESS_KEY = 'minioadmin'
-MINIO_SECRET_KEY = 'minioadmin'
-MINIO_USE_HTTPS = False
-MINIO_URL_EXPIRY_HOURS = timedelta(days=1)  # Default is 7 days (longest) if not defined
-MINIO_CONSISTENCY_CHECK_ON_START = True
-MINIO_PRIVATE_BUCKETS = [
-    'django-backend-dev-private',
-]
-MINIO_PUBLIC_BUCKETS = [
-    'django-backend-dev-public',
-]
-MINIO_POLICY_HOOKS: List[Tuple[str, dict]] = []
 
 # 指定一下自定义user作为系统的user
 AUTH_USER_MODEL = 'users.User'
@@ -69,7 +59,7 @@ MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
+    # 'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
@@ -145,7 +135,21 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-# Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
-
+# Default primary key field type
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# minio相关配置
+MINIO_ENDPOINT = 'localhost:9000'
+MINIO_ACCESS_KEY = 'minioadmin'
+MINIO_SECRET_KEY = 'minioadmin'
+MINIO_USE_HTTPS = False
+MINIO_URL_EXPIRY_HOURS = timedelta(days=1)  # Default is 7 days (longest) if not defined
+MINIO_CONSISTENCY_CHECK_ON_START = True
+MINIO_PRIVATE_BUCKETS = [
+    'django-backend-dev-private',
+]
+MINIO_PUBLIC_BUCKETS = [
+    'django-backend-dev-public',
+]
+MINIO_POLICY_HOOKS: List[Tuple[str, dict]] = []

@@ -5,6 +5,16 @@ from libs.Id_card_validator import id_validator
 from django_minio_backend import MinioBackend, iso_date_prefix
 
 
+class AvatarModel(models.Model):
+    file = models.FileField(storage=MinioBackend(bucket_name='django-backend-dev-private'),
+                            upload_to= iso_date_prefix, verbose_name='上传')
+
+    class Meta:
+        db_table = 'upload_avatar'
+        verbose_name = '头像表'
+        verbose_name_plural = verbose_name
+
+
 class User(AbstractUser):
     phone_num = models.CharField(max_length=20, unique=True, blank=True, verbose_name='手机号码', db_index=True)
     real_name = models.CharField(max_length=255, verbose_name='真实姓名')
@@ -18,8 +28,9 @@ class User(AbstractUser):
                                  verbose_name='用户状态')
     is_admin = models.BooleanField(default=False, verbose_name='是否管理员')
     last_login = models.DateTimeField(null=True, blank=True, verbose_name='上次登录时间')
-    avatar = models.FileField(storage=MinioBackend(bucket_name='django-backend-dev-private'),
-                              upload_to=iso_date_prefix, verbose_name='上传')
+    avatar = models.ForeignKey(AvatarModel, on_delete=models.CASCADE, related_name='account', null=True, blank=True,
+                               default=1, verbose_name='头像')
+
     lottery_times = models.IntegerField(default=10, null=True, blank=True, verbose_name='抽奖次数')
 
     class Meta:
