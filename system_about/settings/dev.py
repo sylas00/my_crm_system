@@ -50,6 +50,9 @@ INSTALLED_APPS = [
     'django_minio_backend',
     'users',
     'upload',
+    'shops',
+    'customers',
+    'followups',
 ]
 
 # 指定一下自定义user作为系统的user
