@@ -2,10 +2,11 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser
 
 from libs.Id_card_validator import id_validator
+from libs.soft_delete_model import BaseModel
 from upload.models import AvatarModel
 
 
-class User(AbstractUser):
+class User(BaseModel, AbstractUser):
     phone_num = models.CharField(max_length=20, unique=True, blank=True, verbose_name='手机号码', db_index=True)
     real_name = models.CharField(max_length=255, verbose_name='真实姓名')
     age = models.IntegerField(null=True, blank=True, verbose_name='年龄')

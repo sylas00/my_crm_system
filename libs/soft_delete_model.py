@@ -1,16 +1,11 @@
 import datetime
-
+from softdelete.models import SoftDeleteObject
 from django.db import models
 
 
-class BaseModel(models.Model):
-    createdAt = models.DateTimeField("创建时间", auto_now_add=True)
-    updatedAt = models.DateTimeField("更新时间", auto_now=True)
-    deletedAt = models.DateTimeField("删除时间", null=True, default=None)
-
-    def delete(self, using=None, keep_parents=False):
-        self.deletedAt = datetime.datetime.now()
-        self.save()
+class BaseModel(SoftDeleteObject, models.Model):
+    createdAt = models.DateTimeField(verbose_name="创建时间", auto_now_add=True)
+    updatedAt = models.DateTimeField(verbose_name="更新时间", auto_now=True)
 
     class Meta:
         abstract = True

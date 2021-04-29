@@ -1,11 +1,7 @@
 from django.db import models
 
-
-
-
 from libs.soft_delete_model import BaseModel
 from users.models import User
-
 
 
 class PlatformModel(models.Model):
@@ -19,8 +15,10 @@ class PlatformModel(models.Model):
 
 class CategoryModel(models.Model):
     name = models.CharField(max_length=255, verbose_name='类目名称')
-    platform = models.ForeignKey(PlatformModel, on_delete=models.CASCADE, related_name='categories', null=True, blank=True, verbose_name='客户平台')
-    parent = models.ForeignKey('self', on_delete=models.SET_NULL, related_name='subs', null=True, blank=True, verbose_name='上级类别')
+    platform = models.ForeignKey(PlatformModel, on_delete=models.CASCADE, related_name='categories', null=True,
+                                 blank=True, verbose_name='客户平台')
+    parent = models.ForeignKey('self', on_delete=models.SET_NULL, related_name='subs', null=True, blank=True,
+                               verbose_name='上级类别')
 
     class Meta:
         db_table = 'crm_shop_store_category'
@@ -29,7 +27,8 @@ class CategoryModel(models.Model):
 
 
 class StoreLevelModel(models.Model):
-    platform = models.ForeignKey(PlatformModel, on_delete=models.CASCADE, related_name='StoreLevel', null=True, blank=True, verbose_name='客户平台')
+    platform = models.ForeignKey(PlatformModel, on_delete=models.CASCADE, related_name='StoreLevel', null=True,
+                                 blank=True, verbose_name='客户平台')
     name = models.CharField(max_length=255, verbose_name='店铺层级')
 
     class Meta:
@@ -39,7 +38,8 @@ class StoreLevelModel(models.Model):
 
 
 class StoreTypeModel(models.Model):
-    platform = models.ForeignKey(PlatformModel, on_delete=models.CASCADE, related_name='StoreType', null=True, blank=True, verbose_name='客户平台')
+    platform = models.ForeignKey(PlatformModel, on_delete=models.CASCADE, related_name='StoreType', null=True,
+                                 blank=True, verbose_name='客户平台')
     name = models.CharField(max_length=255, verbose_name='店铺类型')
 
     class Meta:
@@ -93,25 +93,56 @@ class OpeningTimeModel(models.Model):
         verbose_name_plural = verbose_name
 
 
+class CustomerSourceModel(BaseModel):
+    """
+    独立开发、公海赎回、同事转接、指定分配
+    """
+    source_name = models.CharField(max_length=255, verbose_name='客户来源')
+
+    class Meta:
+        db_table = 'crm_customer_source'
+        verbose_name = '客户来源表'
+        verbose_name_plural = verbose_name
+
+
 class ShopModel(BaseModel):
-    shop_name = models.CharField(max_length=255, unique=True, verbose_name='店铺名')
+    name = models.CharField(max_length=255, unique=True, verbose_name='店铺名')
     url = models.CharField(max_length=1024, default='', null=True, blank=True, verbose_name='店铺链接')
     credit_rating = models.CharField(max_length=255, null=True, blank=True, verbose_name='信用等级')
     product_quantity = models.IntegerField(null=True, blank=True, verbose_name='产品数量')
     cumulative_sales = models.IntegerField(null=True, blank=True, verbose_name='累计销售量')
     sales = models.DecimalField(max_digits=15, decimal_places=2, null=True, blank=True, verbose_name='销售额')
     shop_opening_time = models.DateField(null=True, blank=True, verbose_name='开店时间')
-    create_person = models.ForeignKey(User, on_delete=models.CASCADE, related_name='shops', null=True, blank=True, verbose_name='创建人')
+    create_person = models.ForeignKey(User, on_delete=models.CASCADE, related_name='shops', null=True, blank=True,
+                                      verbose_name='创建人')
+    shop_own = models.ForeignKey(User, on_delete=models.CASCADE, related_name='customer_own', null=True, blank=True,
+                                 verbose_name='负责人')
     # review = models.ForeignKey(ShopReviewModel, on_delete=models.CASCADE, related_name='shops', null=True, blank=True, verbose_name='新增店铺审批')
-    opening_time = models.ForeignKey(OpeningTimeModel, on_delete=models.CASCADE, related_name='shops', null=True, blank=True, verbose_name='开店周期')
-    main_followup_method = models.ForeignKey(MainFollowupMethodsModel, on_delete=models.CASCADE, related_name='shops', null=True, blank=True, verbose_name='主要跟进方式')
-    supply_situation = models.ForeignKey(SupplySituationModel, on_delete=models.CASCADE, related_name='shops', null=True, blank=True, verbose_name='货源情况')
-    shop_nature = models.ForeignKey(ShopNatureModel, on_delete=models.CASCADE, related_name='shops', null=True, blank=True, verbose_name='店铺性质')
-    transaction_cycle = models.ForeignKey(TransactionCycleModel, on_delete=models.CASCADE, related_name='shops', null=True, blank=True, verbose_name='成交周期')
-    platform = models.ForeignKey(PlatformModel, on_delete=models.CASCADE, related_name='shops', null=True, blank=True, verbose_name='店铺平台')
-    category = models.ForeignKey(CategoryModel, on_delete=models.CASCADE, related_name='shops', null=True, blank=True, verbose_name='店铺类目')
-    store_level = models.ForeignKey(StoreLevelModel, on_delete=models.CASCADE, related_name='shops', null=True, blank=True, verbose_name='店铺层级')
-    store_type = models.ForeignKey(StoreTypeModel, on_delete=models.CASCADE, related_name='shops', null=True, blank=True, verbose_name='店铺类型')
+    opening_time = models.ForeignKey(OpeningTimeModel, on_delete=models.CASCADE, related_name='shops', null=True,
+                                     blank=True, verbose_name='开店周期')
+    main_followup_method = models.ForeignKey(MainFollowupMethodsModel, on_delete=models.CASCADE, related_name='shops',
+                                             null=True, blank=True, verbose_name='主要跟进方式')
+    supply_situation = models.ForeignKey(SupplySituationModel, on_delete=models.CASCADE, related_name='shops',
+                                         null=True, blank=True, verbose_name='货源情况')
+    shop_nature = models.ForeignKey(ShopNatureModel, on_delete=models.CASCADE, related_name='shops', null=True,
+                                    blank=True, verbose_name='店铺性质')
+    transaction_cycle = models.ForeignKey(TransactionCycleModel, on_delete=models.CASCADE, related_name='shops',
+                                          null=True, blank=True, verbose_name='成交周期')
+    platform = models.ForeignKey(PlatformModel, on_delete=models.CASCADE, related_name='shops', null=True, blank=True,
+                                 verbose_name='店铺平台')
+    category = models.ForeignKey(CategoryModel, on_delete=models.CASCADE, related_name='shops', null=True, blank=True,
+                                 verbose_name='店铺类目')
+    shop_level = models.ForeignKey(StoreLevelModel, on_delete=models.CASCADE, related_name='shops', null=True,
+                                   blank=True, verbose_name='店铺层级')
+    shop_type = models.ForeignKey(StoreTypeModel, on_delete=models.CASCADE, related_name='shops', null=True, blank=True,
+                                  verbose_name='店铺类型')
+    is_close = models.BooleanField(null=True, blank=True, default=False, verbose_name='是否关店')
+    locked = models.BooleanField(null=True, blank=True, default=False, verbose_name='锁定客户')
+    lock_time = models.DateTimeField(null=True, blank=True, verbose_name='锁定时间')
+    add_partner_time = models.DateTimeField(null=True, blank=True, verbose_name='添加合作人时间')
+    partner = models.ManyToManyField(User, related_name='customer_partner', blank=True, verbose_name='合作人')
+    customer_source = models.ForeignKey(CustomerSourceModel, on_delete=models.CASCADE, related_name='customer',
+                                        null=True, blank=True, verbose_name='客户来源')
 
     class Meta:
         db_table = 'crm_shop'

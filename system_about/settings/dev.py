@@ -53,6 +53,7 @@ INSTALLED_APPS = [
     'shops',
     'customers',
     'followups',
+    'softdelete',
 ]
 
 # 指定一下自定义user作为系统的user
