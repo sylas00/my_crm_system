@@ -1,7 +1,6 @@
 from django.db import models
 
 from libs.soft_delete_model import BaseModel
-from reviews.models import ShopReviewModel
 from users.models import User
 
 
@@ -59,7 +58,6 @@ class ShopModel(BaseModel):
     category = models.ForeignKey(CategoryModel, on_delete=models.CASCADE, related_name='shops', null=True, blank=True,
                                  verbose_name='店铺类目')
     is_close = models.BooleanField(default=False, verbose_name='是否关店')
-
 
     class Meta:
         db_table = 'crm_shop'
