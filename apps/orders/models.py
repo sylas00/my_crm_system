@@ -47,7 +47,7 @@ class OrderModel(BaseModel):
     founder = models.ForeignKey(User, on_delete=models.CASCADE, related_name='order', null=True, blank=True,
                                 verbose_name='创建人')
     shop = models.ForeignKey(ShopModel, on_delete=models.CASCADE, related_name='order', verbose_name='关联店铺')
-    customer = models.ManyToManyField(CustomerModel, related_name='order', null=True, blank=True, verbose_name='关联联系人')
+    customer = models.ManyToManyField(CustomerModel, related_name='order',  blank=True, verbose_name='关联联系人')
     # product = models.ForeignKey(ProductModel, on_delete=models.CASCADE, related_name='order', null=True, blank=True,
     #                             verbose_name='关联服务产品')
     order_num = models.CharField(max_length=255, null=True, blank=True, verbose_name='订单编号')

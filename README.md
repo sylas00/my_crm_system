@@ -49,3 +49,6 @@ django-softdelete
 delete() 标记
 undelete 恢复
 再delete 硬删除
+
+find . -name '000*py' |xargs rm -rf
+
