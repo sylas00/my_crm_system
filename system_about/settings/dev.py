@@ -48,12 +48,20 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     # minio储存后端
     'django_minio_backend',
+    # 软删除
+    'softdelete',
+    ############
     'users',
     'upload',
     'shops',
     'customers',
     'followups',
-    'softdelete',
+    'orders',
+    'comments',
+    'payment',
+    'products',
+    'reviews',
+
 ]
 
 # 指定一下自定义user作为系统的user
