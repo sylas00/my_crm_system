@@ -7,6 +7,7 @@ from upload.models import AvatarModel
 
 #超级大坑 继承类的顺序不一样也会报错 后者不能排前面 不然就要自定义管理器 相当于第三种
 #然后 2和3的区别
+#解决git上 上传无效的记录
 class User(AbstractUser,BaseModel):
     phone_num = models.CharField(max_length=20, unique=True, blank=True, verbose_name='手机号码', db_index=True)
     real_name = models.CharField(max_length=255, verbose_name='真实姓名')
