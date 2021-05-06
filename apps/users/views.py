@@ -15,7 +15,7 @@ def index(r):
         # file = r.FILES.get('fff', None)
         # user.file = file
         # user.save()
-        user = User.objects.first()
+        user = User.objects.create()
         user.avatar=r.FILES.get('fff', None)
         user.save()
         return FileResponse(user.avatar)

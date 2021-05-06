@@ -6,8 +6,8 @@ from users.models import User
 
 
 class ShopCommentModel(BaseModel):
-    reason = models.CharField(max_length=255, default='', verbose_name='评论')
-    account = models.ForeignKey(User, on_delete=models.CASCADE, default=1, verbose_name="评论人")
+    reason = models.CharField(max_length=255, blank=True, verbose_name='评论')
+    account = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name="评论人")
     shop = models.ForeignKey(ShopModel, on_delete=models.CASCADE, related_name='comment', verbose_name="关联店铺")
 
     class Meta:
@@ -17,8 +17,8 @@ class ShopCommentModel(BaseModel):
 
 
 class FollowupCommentModel(BaseModel):
-    reason = models.CharField(max_length=255, default='', verbose_name='评论')
-    account = models.ForeignKey(User, on_delete=models.CASCADE, default=1, verbose_name="评论人")
+    reason = models.CharField(max_length=255, blank=True, verbose_name='评论')
+    account = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name="评论人")
     shop = models.ForeignKey(FollowUpModel, on_delete=models.CASCADE, related_name='comment', verbose_name="关联跟进记录")
 
     class Meta:

@@ -60,6 +60,7 @@ INSTALLED_APPS = [
     'payment',
     'products',
     'reviews',
+    'upload',
 
 ]
 
@@ -164,8 +165,8 @@ MINIO_PRIVATE_BUCKETS = [
 MINIO_PUBLIC_BUCKETS = [
     'video',
     'image',
-    'film',
     'doc',
+    'audio',
 
 ]
 MINIO_POLICY_HOOKS: List[Tuple[str, dict]] = []

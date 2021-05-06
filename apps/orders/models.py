@@ -1,7 +1,10 @@
 from django.db import models
+from django_minio_backend import MinioBackend
 
 from customers.models import CustomerModel
 from libs.soft_delete_model import BaseModel
+from payment.models import PaymentModel
+from products.models import ProductModel
 from shops.models import ShopModel
 from users.models import User
 
@@ -44,42 +47,41 @@ class OrderModel(BaseModel):
         (13, '9%'),
         (14, '10%'),
     )
-    founder = models.ForeignKey(User, on_delete=models.CASCADE, related_name='order', null=True, blank=True,
-                                verbose_name='创建人')
+    founder = models.ForeignKey(User, on_delete=models.CASCADE, related_name='order', verbose_name='创建人')
     shop = models.ForeignKey(ShopModel, on_delete=models.CASCADE, related_name='order', verbose_name='关联店铺')
-    customer = models.ManyToManyField(CustomerModel, related_name='order',  blank=True, verbose_name='关联联系人')
-    # product = models.ForeignKey(ProductModel, on_delete=models.CASCADE, related_name='order', null=True, blank=True,
-    #                             verbose_name='关联服务产品')
-    order_num = models.CharField(max_length=255, null=True, blank=True, verbose_name='订单编号')
-    settlement_order_num = models.CharField(max_length=255, null=True, blank=True, verbose_name='结算订单编号')
-    invoice_num = models.CharField(max_length=255, null=True, blank=True, verbose_name='发票号码')
-    invoice_top_num = models.CharField(max_length=255, null=True, blank=True, verbose_name='发票抬头')
+    customer = models.ManyToManyField(CustomerModel, related_name='order', verbose_name='关联联系人')
+    product = models.ForeignKey(ProductModel, on_delete=models.CASCADE, related_name='order', verbose_name='关联服务产品')
+    order_num = models.CharField(max_length=255, blank=True, verbose_name='订单编号')
+    settlement_order_num = models.CharField(max_length=255, blank=True, verbose_name='结算订单编号')
+    invoice_num = models.CharField(max_length=255, blank=True, verbose_name='发票号码')
+    invoice_top_num = models.CharField(max_length=255, blank=True, verbose_name='发票抬头')
     amount = models.DecimalField(max_digits=15, decimal_places=2, null=True, blank=True, verbose_name='实际金额')
     start_time = models.DateTimeField(null=True, blank=True, verbose_name='服务开始时间')
     end_time = models.DateTimeField(null=True, blank=True, verbose_name='服务结束时间')
-    # order_pic = models.ManyToManyField(OrderPicModel, related_name='order', blank=True, verbose_name='订单付款截图')
-    # order_contract = models.ManyToManyField(OrderContractFileModel, related_name='order', blank=True,
-    #                                         verbose_name='订单合同扫描件')
-    attach = models.TextField(max_length=255, null=True, blank=True, verbose_name='附加赠品')
-    # payment = models.ForeignKey(PaymentModel, on_delete=models.CASCADE, related_name='order', null=True, blank=True,
-    #                             verbose_name='支付方式')
-    effect = models.BooleanField(null=True, blank=True, default=True, verbose_name='是否保证效果')
-    whether_to_cooperate = models.BooleanField(null=True, blank=True, default=True, verbose_name='是否合作转接')
+    order_pic = models.ImageField(upload_to="order/%Y/%m/%d", blank=True, storage=MinioBackend(bucket_name='image'),
+                                  verbose_name='订单付款截图')
+    order_contract = models.FileField(upload_to="order/%Y/%m/%d", blank=True, storage=MinioBackend(bucket_name='doc'),
+                                      verbose_name='订单合同扫描件')
+    attach = models.TextField(max_length=255, blank=True, verbose_name='附加赠品')
+    payment = models.ForeignKey(PaymentModel, on_delete=models.CASCADE, related_name='order', blank=True,
+                                verbose_name='支付方式')
+    effect = models.BooleanField(default=True, verbose_name='是否保证效果')
+    whether_to_cooperate = models.BooleanField(default=True, verbose_name='是否合作转接')
     whether_to_cooperate_person = models.ForeignKey(User, on_delete=models.CASCADE,
-                                                    related_name='whether_to_cooperate_person', null=True, blank=True,
+                                                    related_name='whether_to_cooperate_person', blank=True,
                                                     verbose_name='合作转接人')
-    des_effect = models.TextField(null=True, blank=True, verbose_name='效果说明')
+    des_effect = models.TextField(blank=True, verbose_name='效果说明')
     effect_amount = models.DecimalField(max_digits=15, decimal_places=2, null=True, blank=True, verbose_name='保证金额')
     transaction_type = models.IntegerField(choices=TRANSACTION_TYPE_CHOICES, null=True, blank=True, verbose_name='交易类型')
-    commission = models.BooleanField(default=False, null=True, blank=True, verbose_name='是否有提成')
+    commission = models.BooleanField(default=False, verbose_name='是否有提成')
     commission_start = models.IntegerField(choices=COMMISSION_CHOICE, null=True, blank=True, verbose_name='提点比例开始')
     commission_end = models.IntegerField(choices=COMMISSION_CHOICE, null=True, blank=True, verbose_name='提点比例结束')
-    mention = models.TextField(null=True, blank=True, verbose_name='提点说明')
+    mention = models.TextField(blank=True, verbose_name='提点说明')
     is_help = models.BooleanField(default=False, verbose_name='是否帮谈')
-    helper = models.ForeignKey(User, on_delete=models.CASCADE, related_name='order_helper', null=True,
-                               blank=True, verbose_name='帮谈人')
-    help_level = models.IntegerField(choices=HELP_LEVEL_CHOICES, verbose_name='帮谈提点')
-    cooperation_cycle = models.IntegerField(choices=COOPERATION_CYCYLE_CHOICES, verbose_name='合作周期')
+    helper = models.ForeignKey(User, on_delete=models.CASCADE, related_name='order_helper', blank=True,
+                               verbose_name='帮谈人')
+    help_level = models.IntegerField(choices=HELP_LEVEL_CHOICES,null=True, blank=True, verbose_name='帮谈提点')
+    cooperation_cycle = models.IntegerField(choices=COOPERATION_CYCYLE_CHOICES,null=True, blank=True, verbose_name='合作周期')
 
     class Meta:
         # ordering = ['-update_time', '-create_time']
