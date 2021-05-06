@@ -175,3 +175,22 @@ MINIO_POLICY_HOOKS: List[Tuple[str, dict]] = []
 # 媒体文件位置
 # MEDIA_URL = '/media/'
 # MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+# DRF配置
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        #指定simplejwt认证后端
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    )
+}
+
+# 配置jwt认证 本项目用的是djangorestframework-simplejwt 支持3.1 djangorestframework-jwt只支持到django2.x 而且很久没更新
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=30),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
+
+    'AUTH_HEADER_TYPES': ('Bearer',),
+    'USER_ID_FIELD': 'id',
+    'USER_ID_CLAIM': 'user_id',
+
+}
