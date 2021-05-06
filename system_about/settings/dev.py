@@ -52,7 +52,6 @@ INSTALLED_APPS = [
     'softdelete',
     ############
     'users',
-    'upload',
     'shops',
     'customers',
     'followups',
@@ -151,16 +150,27 @@ STATIC_URL = '/static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # minio相关配置
+# 连接后端
 MINIO_ENDPOINT = 'localhost:9000'
 MINIO_ACCESS_KEY = 'minioadmin'
 MINIO_SECRET_KEY = 'minioadmin'
 MINIO_USE_HTTPS = False
-MINIO_URL_EXPIRY_HOURS = timedelta(days=1)  # Default is 7 days (longest) if not defined
+MINIO_URL_EXPIRY_HOURS = timedelta(days=1)
 MINIO_CONSISTENCY_CHECK_ON_START = True
+# 配置里必须要有公开和私有这两个配置
 MINIO_PRIVATE_BUCKETS = [
-    'django-backend-dev-private',
+    'privatefile',
 ]
 MINIO_PUBLIC_BUCKETS = [
-    'django-backend-dev-public',
+    'video',
+    'image',
+    'film',
+    'doc',
+
 ]
 MINIO_POLICY_HOOKS: List[Tuple[str, dict]] = []
+# 在文件储存的字段里定义储存后端为MinioBackend之后 他会自动解决文件重名问题 如果是自定义的文件 要重写文件上传的save方法 不然会导致文件覆盖
+# upload_to指定上传文件路径 需要如下配置一下 如果和储存后端upload_to都不指定 文件就会默认存在运行目录
+# 媒体文件位置
+# MEDIA_URL = '/media/'
+# MEDIA_ROOT = os.path.join(BASE_DIR, 'media')

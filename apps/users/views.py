@@ -6,16 +6,19 @@ from django.shortcuts import render
 # RuntimeError: Model class apps.users.models.User doesn't declare an explicit app_label and isn't in an application in INSTALLED_APPS.
 # from apps.users.models import User
 from shops.models import ShopModel
-from upload.models import AvatarModel
+from users.models import User
 
 
 def index(r):
     if r.method == 'POST':
-        user = AvatarModel.objects.create()
-        file = r.FILES.get('fff', None)
-        user.file = file
+        # user = AvatarModel.objects.create()
+        # file = r.FILES.get('fff', None)
+        # user.file = file
+        # user.save()
+        user = User.objects.first()
+        user.avatar=r.FILES.get('fff', None)
         user.save()
-        return HttpResponse('hello world')
+        return FileResponse(user.avatar)
     if r.method == 'GET':
         # obj = AvatarModel.objects.get(pk=9)
         # img = obj.file
