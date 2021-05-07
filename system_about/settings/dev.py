@@ -134,11 +134,14 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'zh-hans'
 
+# 当使用时区时，Django存储在数据库中的所有日期时间信息都以UTC时区为准，在后台使用有时区的datetime，前台用户使用时，在网页上翻译成用户所在的时区。
+# TIME_ZONE的作用是在模板渲染的时候转化时间用的
 TIME_ZONE = 'Asia/Shanghai'
 USE_I18N = True
 
 USE_L10N = True
 
+# 使用时区 数据库存储的时间都是UTC时间
 USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
@@ -192,5 +195,4 @@ SIMPLE_JWT = {
     'AUTH_HEADER_TYPES': ('Bearer',),
     'USER_ID_FIELD': 'id',
     'USER_ID_CLAIM': 'user_id',
-
 }
