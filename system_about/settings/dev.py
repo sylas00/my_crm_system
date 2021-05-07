@@ -40,8 +40,7 @@ ALLOWED_HOSTS = ['*', ]
 # Application definition
 
 INSTALLED_APPS = [
-    # 'simpleui',
-    #自动寻找每个app里的admin并导入
+    # 自动寻找每个app里的admin并导入
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -184,15 +183,31 @@ MINIO_POLICY_HOOKS: List[Tuple[str, dict]] = []
 # DRF配置
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
-        #指定simplejwt认证后端
+        # 指定simplejwt认证后端
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     )
 }
 
 # 配置jwt认证 本项目用的是djangorestframework-simplejwt 支持3.1 djangorestframework-jwt只支持到django2.x 而且很久没更新
+# jwt包含三个部分
+# header(alg:算法 typ:类型)
+
+# payload(
+# iss (issuer)：签发人
+# exp (expiration time)：过期时间
+# sub (subject)：主题
+# aud (audience)：受众
+# nbf (Not Before)：生效时间
+# iat (Issued At)：签发时间
+# jti (JWT ID)：编号)
+
+# Signature 签名 防篡改
+# 访问令牌和刷新令牌的区别 为了服务端可以更及时地修改用户的权限或者其他能够更快生效 如果只有一个令牌 那时间将会固定死
 SIMPLE_JWT = {
     'ACCESS_TOKEN_LIFETIME': timedelta(minutes=30),
-    'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=7),
+    # 用jwt登录自动刷新更新最后登录时间
+    'UPDATE_LAST_LOGIN': True,
 
     'AUTH_HEADER_TYPES': ('Bearer',),
     'USER_ID_FIELD': 'id',
