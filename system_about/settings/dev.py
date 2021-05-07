@@ -40,6 +40,8 @@ ALLOWED_HOSTS = ['*', ]
 # Application definition
 
 INSTALLED_APPS = [
+    # 'simpleui',
+    #自动寻找每个app里的admin并导入
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
