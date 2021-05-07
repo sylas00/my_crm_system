@@ -51,6 +51,9 @@ INSTALLED_APPS = [
     'django_minio_backend',
     # 软删除
     'softdelete',
+    # 文档
+    "drf_yasg",
+
     ############
     'users',
     'shops',
