@@ -51,6 +51,8 @@ INSTALLED_APPS = [
     'django_minio_backend',
     # 软删除
     'softdelete',
+    # DRF
+    'rest_framework',
     # 文档
     "drf_yasg",
 
@@ -185,6 +187,10 @@ MINIO_POLICY_HOOKS: List[Tuple[str, dict]] = []
 
 # DRF配置
 REST_FRAMEWORK = {
+    # 权限配置
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
+    ],
     'DEFAULT_AUTHENTICATION_CLASSES': (
         # 指定simplejwt认证后端
         'rest_framework_simplejwt.authentication.JWTAuthentication',
