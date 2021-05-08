@@ -6,7 +6,6 @@ from django.shortcuts import render
 # RuntimeError: Model class apps.users.models.User doesn't declare an explicit app_label and isn't in an application in INSTALLED_APPS.
 # from apps.users.models import User
 from django.utils import timezone
-
 from shops.models import ShopModel
 from users.models import User
 
@@ -40,3 +39,5 @@ def index(r):
         # a = a.created_at
         # print(a)
         return HttpResponse(a,)
+
+# class UserView(ModelSerializer)
