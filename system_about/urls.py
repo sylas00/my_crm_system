@@ -36,7 +36,7 @@ urlpatterns = [
 
     path('api-auth/', include('rest_framework.urls')),
 
-    # jwt认证和刷新
+    # jwt认证和刷新 最后还是决定不用 自定义的验证
     path('login/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
     # drf 自动接口文档

@@ -16,7 +16,7 @@ class OrderModel(BaseModel):
         (3, '增值')
     )
 
-    COOPERATION_CYCYLE_CHOICES = (
+    COOPERATION_CYCLE_CHOICES = (
         (1, '单月'),
         (2, '三个月'),
         (3, '季度'),
@@ -81,7 +81,7 @@ class OrderModel(BaseModel):
     helper = models.ForeignKey(User, on_delete=models.CASCADE, related_name='order_helper', blank=True,
                                verbose_name='帮谈人')
     help_level = models.IntegerField(choices=HELP_LEVEL_CHOICES,null=True, blank=True, verbose_name='帮谈提点')
-    cooperation_cycle = models.IntegerField(choices=COOPERATION_CYCYLE_CHOICES,null=True, blank=True, verbose_name='合作周期')
+    cooperation_cycle = models.IntegerField(choices=COOPERATION_CYCLE_CHOICES,null=True, blank=True, verbose_name='合作周期')
 
     class Meta:
         # ordering = ['-update_time', '-create_time']

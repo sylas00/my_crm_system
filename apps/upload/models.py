@@ -3,6 +3,17 @@ from django.db import models
 from django_minio_backend import MinioBackend
 
 
+class AvatarModel(models.Model):
+    name = models.CharField(max_length=255, )
+    file = models.ImageField(upload_to="avatar/%Y/%m/%d", blank=True, storage=MinioBackend(bucket_name='image'),
+                             verbose_name='跟进聊天截图')
+
+    class Meta:
+        db_table = 'upload_avatar'
+        verbose_name = '用户头像'
+        verbose_name_plural = verbose_name
+
+
 # 文件表与主体表分离 好处 可以存更多关于文件的信息 坏处 麻烦
 class ScreenshotModel(models.Model):
     name = models.CharField(max_length=255, )

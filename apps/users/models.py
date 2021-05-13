@@ -5,9 +5,11 @@ from django_minio_backend import MinioBackend
 from libs.Id_card_validator import id_validator
 from libs.soft_delete_model import BaseModel
 
-
 # 超级大坑 继承类的顺序不一样也会报错 后者不能排前面 不然就要自定义管理器 相当于官方文档第三种拓展用户类的方法
 # 然后 官方文档方法2和方法3的区别（取决于是否修改或重写原有字段？）
+from upload.models import AvatarModel
+
+
 class User(AbstractUser, BaseModel):
     GENDER_CHOICES = [
         (0, '未知'),
@@ -25,13 +27,12 @@ class User(AbstractUser, BaseModel):
     # null主要是用在IntegerField，DateField, DateTimeField,这几个字段不接受空字符串，所以在使用时，必须将blank和null同时赋值为True
     phone_num = models.CharField(max_length=20, blank=True, verbose_name='手机号码')
     real_name = models.CharField(max_length=255, blank=True, verbose_name='真实姓名')
-    age = models.IntegerField(blank=True,null=True, verbose_name='年龄')
+    age = models.IntegerField(blank=True, null=True, verbose_name='年龄')
     id_card = models.CharField(max_length=18, blank=True, verbose_name='身份证号码', validators=[id_validator])
     birth_date = models.DateField(null=True, blank=True, verbose_name='出生年月日')
     gender = models.SmallIntegerField(choices=GENDER_CHOICES, default=0, verbose_name='性别')
     status = models.IntegerField(choices=STATUS_CHOICES, default=1, verbose_name='用户状态')
-    avatar = models.ImageField(upload_to="avatar/%Y/%m/%d", blank=True, storage=MinioBackend(bucket_name='image'),
-                               verbose_name='头像')
+    avatar = models.ForeignKey(AvatarModel, on_delete=models.SET_NULL,null=True,blank=True, verbose_name='用户头像')
     lottery_times = models.IntegerField(default=10, blank=True, verbose_name='抽奖次数')
 
     class Meta:

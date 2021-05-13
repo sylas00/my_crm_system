@@ -219,6 +219,8 @@ SIMPLE_JWT = {
     'UPDATE_LAST_LOGIN': True,
 
     'AUTH_HEADER_TYPES': ('Bearer',),
+    # 在数据库中 储存用户唯一标识的字段 的字段名(最好用id 不用用户名和邮箱之类的 因为可能会变)  将会默认在jwt的payload 部分中
     'USER_ID_FIELD': 'id',
+    # 在payload中 给上面这个数据的命名
     'USER_ID_CLAIM': 'user_id',
 }
