@@ -5,15 +5,14 @@ from django.http import HttpResponse, FileResponse
 from django.utils import timezone
 from rest_framework import viewsets, permissions
 
-from users.models import User
-from users.serializers import UserGroup
+from . import models
+from . import serializers
 
 
-class GroupViewSet(viewsets.ModelViewSet):
+class UserViewSet(viewsets.ModelViewSet):
     """
     API endpoint that allows groups to be viewed or edited.
     """
-    queryset = Permission.objects.all()
-    serializer_class = UserGroup
+    queryset = models.User.objects.all()
+    serializer_class = serializers.UserSer
     # permission_classes = [permissions.IsAuthenticated]
-

@@ -40,9 +40,11 @@ ALLOWED_HOSTS = ['*', ]
 # Application definition
 
 INSTALLED_APPS = [
-    # 自动寻找每个app里的admin并导入
+    # 提供自带的admin后台 自动寻找每个app里的admin并导入
     'django.contrib.admin',
+    # 包含了验证框架的内核和它的默认模型
     'django.contrib.auth',
+    # 你创建的模型和权限相关联
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
@@ -75,9 +77,11 @@ AUTH_USER_MODEL = 'users.User'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    # 通过请求管理 sessions
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     # 'django.middleware.csrf.CsrfViewMiddleware',
+    # 使用会话 将用户和请求相关联
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
