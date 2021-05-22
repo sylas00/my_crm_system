@@ -2,6 +2,7 @@ from rest_framework.serializers import ModelSerializer
 from . import models
 
 
+# 既然他们的模型类都一样 包括字段名 其实可以只写一个序列化器就好了 但为了之后的拓展性 就都留着把
 class AvatarSer(ModelSerializer):
     """
     头像序列化器
