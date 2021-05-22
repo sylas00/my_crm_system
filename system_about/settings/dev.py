@@ -213,8 +213,8 @@ REST_FRAMEWORK = {
 # Signature 签名 防篡改
 # 访问令牌和刷新令牌的区别 为了服务端可以更及时地修改用户的权限或者其他能够更快生效 如果只有一个令牌 那时间将会固定死
 SIMPLE_JWT = {
-    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=30),
-    'REFRESH_TOKEN_LIFETIME': timedelta(days=7),
+    'ACCESS_TOKEN_LIFETIME': timedelta(days=300),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=300),
     # 用jwt登录自动刷新更新最后登录时间
     'UPDATE_LAST_LOGIN': True,
 

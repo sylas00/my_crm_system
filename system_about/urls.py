@@ -29,7 +29,7 @@ schema_view = get_schema_view(
     public=True,
     permission_classes=(permissions.AllowAny,),
 )
-
+# url 要加斜杠 不然 my 在 mysite 之前  框架无法识别 只能按照顺序先选择my
 urlpatterns = [
     # django自带管理后端
     path('admin/', admin.site.urls),
@@ -47,4 +47,5 @@ urlpatterns = [
     path("redoc/", schema_view.with_ui("redoc", cache_timeout=0), name="schema-redoc"),
 
     path('', include('users.urls')),
+    path('upload/', include('upload.urls')),
 ]
