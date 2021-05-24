@@ -203,9 +203,10 @@ REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         # 指定simplejwt认证后端
         'rest_framework_simplejwt.authentication.JWTAuthentication',
-    )
-}
+    ),
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
 
+}
 # 配置jwt认证 本项目用的是djangorestframework-simplejwt 支持3.1 djangorestframework-jwt只支持到django2.x 而且很久没更新
 # jwt包含三个部分
 # header(alg:算法 typ:类型)
