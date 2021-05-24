@@ -10,6 +10,7 @@ Class-based views
 Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+import debug_toolbar
 from django.contrib import admin
 from django.urls import path, include, re_path
 from drf_yasg import openapi
@@ -45,6 +46,8 @@ urlpatterns = [
     re_path(r"swagger(?P<format>\.json|\.yaml)", schema_view.without_ui(cache_timeout=0), name="schema-json", ),
     path("swagger/", schema_view.with_ui("swagger", cache_timeout=0), name="schema-swagger-ui", ),
     path("redoc/", schema_view.with_ui("redoc", cache_timeout=0), name="schema-redoc"),
+    # debug_toolbar
+    path('__debug__/', include(debug_toolbar.urls)),
 
     # apps
     path('user/', include('users.urls')),

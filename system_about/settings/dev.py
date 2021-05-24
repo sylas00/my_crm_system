@@ -57,7 +57,8 @@ INSTALLED_APPS = [
     'rest_framework',
     # 文档
     "drf_yasg",
-
+    # debug_toolbar
+    'debug_toolbar',
     ############
     'users',
     'shops',
@@ -71,11 +72,15 @@ INSTALLED_APPS = [
     'upload',
 
 ]
+# debug_toolbar 要配置的内部IPS
+INTERNAL_IPS = ['127.0.0.1']
 
 # 指定一下自定义user作为系统的user
 AUTH_USER_MODEL = 'users.User'
 
 MIDDLEWARE = [
+    # debug_toolbar
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
     'django.middleware.security.SecurityMiddleware',
     # 通过请求管理 sessions
     'django.contrib.sessions.middleware.SessionMiddleware',

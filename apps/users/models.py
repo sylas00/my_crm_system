@@ -25,6 +25,7 @@ class User(AbstractUser, BaseModel):
     # blank 是针对表单验证的 null才是实际操作数据库的null
     # 在储存字符串的字段中不要设置null= True 例如 CharField, TextField FileField(文件路径也是字符串)
     # null主要是用在IntegerField，DateField, DateTimeField,这几个字段不接受空字符串，所以在使用时，必须将blank和null同时赋值为True
+    # verbose作为一个title 可以在很多地方对字段进行说明 help_text是针对表单使用的
     phone_num = models.CharField(max_length=20, blank=True, verbose_name='手机号码')
     real_name = models.CharField(max_length=255, blank=True, verbose_name='真实姓名')
     age = models.IntegerField(blank=True, null=True, verbose_name='年龄')
