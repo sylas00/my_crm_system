@@ -36,7 +36,7 @@ class DocumentSer(ModelSerializer):
     """
 
     class Meta:
-        model = models.DocumentModel
+        model = models.FollowUpDocumentModel
         fields = ['id', 'name', 'file', 'created_at']
         read_only_fields = ['created_at']
 

@@ -23,7 +23,7 @@ class DocumentViewSet(RetrieveAndCreateViewSet):
     """
     跟进文档视图集
     """
-    queryset = models.DocumentModel.objects.all()
+    queryset = models.FollowUpDocumentModel.objects.all()
     serializer_class = serializer.DocumentSer
 
 

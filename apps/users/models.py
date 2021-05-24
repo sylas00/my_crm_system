@@ -34,8 +34,6 @@ class User(AbstractUser, BaseModel):
     gender = models.SmallIntegerField(choices=GENDER_CHOICES, default=0, verbose_name='性别')
     status = models.IntegerField(choices=STATUS_CHOICES, default=1, verbose_name='用户状态')
     avatar = models.ForeignKey(AvatarModel, on_delete=models.SET_NULL, null=True, blank=True, verbose_name='用户头像')
-    lottery_times = models.IntegerField(default=10, blank=True, verbose_name='抽奖次数')
-
     class Meta:
         # 指定一个和系统自带user一样的表名 不知道会不会引发BUG
         db_table = 'auth_user'

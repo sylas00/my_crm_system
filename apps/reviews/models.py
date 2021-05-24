@@ -10,8 +10,8 @@ from users.models import User
 class ShopReviewModel(BaseModel):
     status = models.SmallIntegerField(choices=[(0, '待审核'), (2, '通过'), (3, '未通过')], default=0, verbose_name='审批状态')
     reason = models.CharField(max_length=255, blank=True, verbose_name='原因')
-    account = models.ForeignKey(User, on_delete=models.CASCADE, related_name='shop_review', verbose_name="审批人")
-    shop = models.ForeignKey(ShopModel, on_delete=models.CASCADE, related_name='review', verbose_name="关联店铺")
+    account = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name="审批人")
+    shop = models.ForeignKey(ShopModel, on_delete=models.CASCADE, verbose_name="关联店铺")
 
     class Meta:
         db_table = 'crm_shop_review'
@@ -22,8 +22,8 @@ class ShopReviewModel(BaseModel):
 class FollowupReviewModel(BaseModel):
     status = models.SmallIntegerField(choices=[(0, '待审核'), (2, '通过'), (3, '未通过')], default=0, verbose_name='审批状态')
     reason = models.CharField(max_length=255, blank=True, verbose_name='原因')
-    account = models.ForeignKey(User, on_delete=models.CASCADE, related_name='followup_review', verbose_name="审批人")
-    shop = models.ForeignKey(FollowUpModel, on_delete=models.CASCADE, related_name='review', verbose_name="关联跟进")
+    account = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name="审批人")
+    shop = models.ForeignKey(FollowUpModel, on_delete=models.CASCADE,verbose_name="关联跟进")
 
     class Meta:
         db_table = 'crm_followup_review'
@@ -34,8 +34,8 @@ class FollowupReviewModel(BaseModel):
 class OrderReviewModel(BaseModel):
     status = models.SmallIntegerField(choices=[(0, '待审核'), (2, '通过'), (3, '未通过')], default=0, verbose_name='审批状态')
     reason = models.CharField(max_length=255, blank=True, verbose_name='原因')
-    account = models.ForeignKey(User, on_delete=models.CASCADE, related_name='order_review', verbose_name="审批人")
-    shop = models.ForeignKey(OrderModel, on_delete=models.CASCADE, related_name='review', verbose_name="关联订单")
+    account = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name="审批人")
+    shop = models.ForeignKey(OrderModel, on_delete=models.CASCADE, verbose_name="关联订单")
 
     class Meta:
         db_table = 'crm_order_review'
