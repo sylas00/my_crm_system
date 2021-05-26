@@ -1,3 +1,13 @@
-from django.shortcuts import render
+from rest_framework import viewsets
+from . import models
+from . import serializer
 
-# Create your views here.
+
+class FollowupCommentViewSet(viewsets.ModelViewSet):
+    queryset = models.FollowupCommentModel.objects.all()
+    serializer_class = serializer.FollowupCommentSer
+
+
+class ShopCommentViewSet(viewsets.ModelViewSet):
+    queryset = models.FollowupCommentModel.objects.all()
+    serializer_class = serializer.ShopCommentSer

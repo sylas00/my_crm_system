@@ -9,10 +9,10 @@ router = SimpleRouter()
 # 这里的路由就不加/了
 router.register('avatar', views.AvatarViewSet)
 router.register('screenshot', views.ScreenshotViewSet)
-router.register('order_image', views.OrderImageViewSet)
-router.register('followup_document', views.FollowUpDocumentViewSet)
-router.register('product_document', views.ProductDocumentViewSet)
-router.register('order_document', views.OrderDocumentViewSet)
+router.register('order-image', views.OrderImageViewSet)
+router.register('followup-document', views.FollowUpDocumentViewSet)
+router.register('product-document', views.ProductDocumentViewSet)
+router.register('order-document', views.OrderDocumentViewSet)
 router.register('recording', views.RecordingViewSet)
 
 urlpatterns = router.urls
