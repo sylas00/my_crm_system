@@ -61,12 +61,12 @@ class FollowUpModel(BaseModel):
         (4, '约定付款'),
         (5, '成交'),
     ]
-    follow_account = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='跟进人')
+    founder = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='跟进人')
     follow_way = models.SmallIntegerField(choices=FOLLOWUP_WAY_CHOICES, default=0, verbose_name='跟进方式')
     follow_time = models.DateTimeField(null=True, blank=True, verbose_name='跟进时间')
     follow_next_time = models.DateTimeField(null=True, blank=True, verbose_name='预计下次跟进时间')
     chat_record = models.TextField(default=None, null=True, blank=True, verbose_name='聊天记录')
-    follow_description = models.CharField(max_length=255, null=True, blank=True, verbose_name='跟进情况描述')
+    follow_description = models.CharField(max_length=255, blank=True, verbose_name='跟进情况描述')
     marking = models.SmallIntegerField(choices=FOLLOWUP_MARK_CHOICES, default=0, verbose_name='绩效打标')
     intentional = models.IntegerField(default=1, choices=INTENTIONAL, verbose_name='意向度')
     estimated_amount = models.DecimalField(max_digits=15, decimal_places=2, null=True, blank=True, verbose_name='预估金额')
@@ -75,10 +75,10 @@ class FollowUpModel(BaseModel):
     chat_screenshot = models.ManyToManyField(ScreenshotModel, blank=True, verbose_name='跟进聊天截图')
     chat_document = models.ManyToManyField(FollowUpDocumentModel, blank=True, verbose_name='跟进聊天文档')
     chat_recording = models.ManyToManyField(RecordingModel, blank=True, verbose_name='跟进聊天录音')
-    order = models.ForeignKey(OrderModel, on_delete=models.CASCADE, blank=True, verbose_name='成交订单')
+    order = models.ForeignKey(OrderModel, on_delete=models.CASCADE, null=True, blank=True, verbose_name='成交订单')
     shop = models.ForeignKey(ShopModel, on_delete=models.CASCADE, verbose_name='关联店铺')
-    cooperative_business_type = models.ForeignKey(ProductTypeModel, on_delete=models.CASCADE,
-                                                  blank=True, verbose_name='合作业务类型')
+    cooperative_business_type = models.ForeignKey(ProductTypeModel, on_delete=models.CASCADE, null=True, blank=True,
+                                                  verbose_name='合作业务类型')
 
     class Meta:
         # ordering = ['follow_time', 'update_time']
