@@ -52,5 +52,7 @@ delete() 标记
 undelete 恢复
 再delete 硬删除
 
-find . -name '000*py' |xargs rm -rf
+#小技巧
+find . -name '000*py' |xargs rm -rf 
+python manager inspectdb  导出现有数据库每张表的模型类
 

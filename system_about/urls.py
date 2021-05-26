@@ -50,6 +50,7 @@ urlpatterns = [
     path('__debug__/', include(debug_toolbar.urls)),
 
     # apps
-    path('user/', include('users.urls')),
+    path('', include('users.urls')),
     path('upload/', include('upload.urls')),
+    path('', include('shops.urls')),
 ]
