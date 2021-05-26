@@ -4,9 +4,9 @@ from . import models
 
 class ShopSer(ModelSerializer):
     """
-    头像序列化器
+    店铺序列化器
     """
-
+# 序列化器 默认指定一个字段是否为必传参数 是由 模型类里字段的 blank =True/False 决定的
     class Meta:
         model = models.ShopModel
         fields = '__all__'

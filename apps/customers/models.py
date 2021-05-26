@@ -22,13 +22,13 @@ class AreaModel(models.Model):
 
 class CustomerModel(BaseModel):
     name = models.CharField(max_length=255, verbose_name='客户名')
-    create_account = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='创建人')
+    founder = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='创建人')
     shop = models.ForeignKey(ShopModel, on_delete=models.CASCADE, verbose_name='客户所属店铺')
     qq = models.CharField(max_length=255, blank=True, verbose_name='QQ')
     wechat = models.CharField(max_length=255, blank=True, verbose_name='微信')
     phone = models.CharField(max_length=11, blank=True, verbose_name='手机号')
     tel = models.CharField(max_length=255, blank=True, verbose_name='座机电话')
-    address = models.ForeignKey(AreaModel, on_delete=models.CASCADE, null=True,blank=True, verbose_name='地址')
+    address = models.ForeignKey(AreaModel, on_delete=models.CASCADE, null=True, blank=True, verbose_name='地址')
 
     # 操作记录 投诉 举报
 

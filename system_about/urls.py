@@ -53,4 +53,5 @@ urlpatterns = [
     path('', include('users.urls')),
     path('upload/', include('upload.urls')),
     path('', include('shops.urls')),
+    path('', include('customers.urls')),
 ]
