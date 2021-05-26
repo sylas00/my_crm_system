@@ -23,7 +23,7 @@ class FollowupReviewModel(BaseModel):
     status = models.SmallIntegerField(choices=[(0, '待审核'), (2, '通过'), (3, '未通过')], default=0, verbose_name='审批状态')
     reason = models.CharField(max_length=255, blank=True, verbose_name='原因')
     account = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name="审批人")
-    shop = models.ForeignKey(FollowUpModel, on_delete=models.CASCADE,verbose_name="关联跟进")
+    shop = models.ForeignKey(FollowUpModel, on_delete=models.CASCADE, verbose_name="关联跟进")
 
     class Meta:
         db_table = 'crm_followup_review'
