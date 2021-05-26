@@ -28,7 +28,7 @@ class CustomerModel(BaseModel):
     wechat = models.CharField(max_length=255, blank=True, verbose_name='微信')
     phone = models.CharField(max_length=11, blank=True, verbose_name='手机号')
     tel = models.CharField(max_length=255, blank=True, verbose_name='座机电话')
-    address = models.ForeignKey(AreaModel, on_delete=models.CASCADE, blank=True, verbose_name='地址')
+    address = models.ForeignKey(AreaModel, on_delete=models.CASCADE, null=True,blank=True, verbose_name='地址')
 
     # 操作记录 投诉 举报
 

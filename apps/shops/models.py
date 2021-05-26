@@ -5,12 +5,19 @@ from users.models import User
 
 
 class CategoryModel(models.Model):
+    SHOP_PLATFORM = [
+        (1, '淘宝'),
+        (2, '天猫'),
+        (3, '京东'),
+        (4, '拼多多'),
+        (5, '苏宁'),
+    ]
     name = models.CharField(max_length=255, verbose_name='类目名称')
-    parent = models.ForeignKey('self', on_delete=models.SET_NULL, related_name='subs', null=True, blank=True,
-                               verbose_name='上级类别')
+    platform = models.SmallIntegerField(choices=SHOP_PLATFORM, blank=True, null=True, verbose_name='店铺平台')
+    parent = models.ForeignKey('self', on_delete=models.SET_NULL, null=True, blank=True, verbose_name='上级类别')
 
     class Meta:
-        db_table = 'crm_shop_store_category'
+        db_table = 'crm_shop_category'
         verbose_name = '店铺类目表'
         verbose_name_plural = verbose_name
 
@@ -30,7 +37,7 @@ class ShopModel(BaseModel):
         (2, '天猫'),
         (3, '京东'),
         (4, '拼多多'),
-        (5, '亚马逊'),
+        (5, '苏宁'),
     ]
 
     name = models.CharField(max_length=255, unique=True, verbose_name='店铺名')
