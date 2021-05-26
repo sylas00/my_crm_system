@@ -2,6 +2,6 @@ from rest_framework.routers import SimpleRouter
 from . import views
 
 router = SimpleRouter()
-router.register('followup', views.FollowUpViewSet)
+router.register('order', views.OrderViewSet)
 
 urlpatterns = router.urls
