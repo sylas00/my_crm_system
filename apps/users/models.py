@@ -6,6 +6,7 @@ from libs.Id_card_validator import id_validator
 from libs.soft_delete_model import BaseModel
 
 # 超级大坑 继承类的顺序不一样也会报错 后者不能排前面 不然就要自定义管理器 相当于官方文档第三种拓展用户类的方法
+# 原因 子类从多个抽象基类中继承时  默认继承第一个列出类的Meta选项
 # 然后 官方文档方法2和方法3的区别（取决于是否修改或重写原有字段？）
 from upload.models import AvatarModel
 
@@ -34,6 +35,7 @@ class User(AbstractUser, BaseModel):
     gender = models.SmallIntegerField(choices=GENDER_CHOICES, default=0, verbose_name='性别')
     status = models.IntegerField(choices=STATUS_CHOICES, default=1, verbose_name='用户状态')
     avatar = models.ForeignKey(AvatarModel, on_delete=models.SET_NULL, null=True, blank=True, verbose_name='用户头像')
+
     class Meta:
         # 指定一个和系统自带user一样的表名 不知道会不会引发BUG
         db_table = 'auth_user'
