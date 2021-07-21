@@ -20,11 +20,13 @@ class AreaModel(models.Model):
         verbose_name_plural = verbose_name
 
 
+# verbose_name可以用在程序中 如model._meta.verbose_name
+# help在表单展示上有用 比如生成文档时 但是在sswagger里两者都显示
 class CustomerModel(BaseModel):
     name = models.CharField(max_length=255, verbose_name='客户名')
     founder = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='创建人')
     shop = models.ForeignKey(ShopModel, on_delete=models.CASCADE, verbose_name='客户所属店铺')
-    qq = models.CharField(max_length=255, blank=True, verbose_name='QQ')
+    qq = models.CharField(max_length=255, blank=True, verbose_name='QQ',help_text='这是help_text')
     wechat = models.CharField(max_length=255, blank=True, verbose_name='微信')
     phone = models.CharField(max_length=11, blank=True, verbose_name='手机号')
     tel = models.CharField(max_length=255, blank=True, verbose_name='座机电话')
