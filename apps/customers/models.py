@@ -20,7 +20,7 @@ class AreaModel(models.Model):
         verbose_name_plural = verbose_name
 
 
-# verbose_name可以用在程序中 如model._meta.verbose_name
+# verbose_name可以用在程序中 如model._meta.verbose_name 所以一般要英文 且小写
 # help在表单展示上有用 比如生成文档时 但是在sswagger里两者都显示
 class CustomerModel(BaseModel):
     name = models.CharField(max_length=255, verbose_name='客户名')
