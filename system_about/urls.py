@@ -18,6 +18,8 @@ from drf_yasg.views import get_schema_view
 from rest_framework import permissions
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 
+from fileio.views import FileOutput
+
 schema_view = get_schema_view(
     openapi.Info(
         title="HelloDjango REST framework tutorial API",
@@ -59,4 +61,6 @@ urlpatterns = [
     path('', include('payment.urls')),
     path('', include('products.urls')),
     path('', include('reviews.urls')),
+    path('fileoutput/', FileOutput.as_view()),
+
 ]

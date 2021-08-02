@@ -70,6 +70,7 @@ INSTALLED_APPS = [
     'products',
     'reviews',
     'upload',
+    'fileio',
 
 ]
 # debug_toolbar 要配置的内部IPS
@@ -118,10 +119,10 @@ WSGI_APPLICATION = 'system_about.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'learnsql',
+        'NAME': 'crm',
         'HOST': '127.0.0.1',
-        'PASSWORD': '123456',
-        'USER': 'xujin',
+        'PASSWORD': '1122',
+        'USER': 'root',
         'PORT': 3306,
     }
 }
@@ -171,8 +172,8 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # minio相关配置
 # 连接后端
 MINIO_ENDPOINT = 'localhost:9000'
-MINIO_ACCESS_KEY = 'minioadmin'
-MINIO_SECRET_KEY = 'minioadmin'
+MINIO_ACCESS_KEY = 'AKIAIOSFODNN7EXAMPLE'
+MINIO_SECRET_KEY = 'wJalrXUtnFEMIK7MDENGbPxRfiCYEXAMPLEKEY'
 MINIO_USE_HTTPS = False
 MINIO_URL_EXPIRY_HOURS = timedelta(days=1)
 MINIO_CONSISTENCY_CHECK_ON_START = True
