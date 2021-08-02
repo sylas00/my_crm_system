@@ -2,8 +2,7 @@
 # import pymysql
 # pymysql.install_as_MySQLdb()
 
+# 这里是为了让其他包能方便地导入我们创建的celery app
+from .celery import app as celery_app
 
-# 当Django 启动时加载应用程序，以便将各个app里被@shared_task装饰器装饰的函数导入celery处理
-# from .celery import app as celery_app
-#
-# __all__ = ('celery_app',)
+__all__ = ('celery_app',)

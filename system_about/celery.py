@@ -1,7 +1,6 @@
 from time import sleep
 
 import openpyxl
-# from apps.users.models import User
 from celery import Celery
 
 import os
@@ -21,10 +20,9 @@ app.conf.broker_url = 'redis://127.0.0.1:6379/0'
 
 
 @app.task()
-def out(x,y):
-    print(x,y)
-    data = [1]
-    # data = User.objects.values_list('username', flat=True)
+def out(data):
+    # print(data)
+    # data = [1]
     wb = openpyxl.Workbook()
     ws = wb.active
     ws.title = 'data'
