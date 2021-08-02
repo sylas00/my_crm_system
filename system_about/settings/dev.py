@@ -235,3 +235,6 @@ SIMPLE_JWT = {
     # 在payload中 给上面这个数据的命名
     'USER_ID_CLAIM': 'user_id',
 }
+
+# setting中的celery配置
+# CELERY_BROKER_URL = 'redis://localhost:6379/0'
