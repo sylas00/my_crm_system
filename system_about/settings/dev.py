@@ -71,6 +71,7 @@ INSTALLED_APPS = [
     'reviews',
     'upload',
     'fileio',
+    # 'celery',
 
 ]
 # debug_toolbar 要配置的内部IPS
