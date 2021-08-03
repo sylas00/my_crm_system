@@ -11,7 +11,7 @@ import os
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'system_about.settings.dev')
 
 # 配置方法一：直接在创建celery实例的时候指定
-# 定义celery实例的时候名称可以任意 但是看教程好像说要和文件名一样？存疑
+# 定义celery实例的时候名称可以任意
 app = Celery('a', broker='redis://127.0.0.1:6379/0',backend='redis://localhost:6379/1')
 
 # 配置队列方案二：直接写在文件里
