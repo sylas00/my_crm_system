@@ -1,11 +1,11 @@
 from time import sleep
-
 import openpyxl
 from celery import shared_task
 from users.models import User
 
 
-@shared_task
+# 如果是定义在app里的任务 用shard_task装饰器
+@shared_task(name='aaa')
 def out(x,y):
     print(x,y)
     data = User.objects.values_list('username', flat=True)
@@ -17,4 +17,5 @@ def out(x,y):
     for i in data:
         ws.append([i])
     wb.save('a.xlsx')
+    return 0
 
