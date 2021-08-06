@@ -7,7 +7,6 @@ from rest_framework import viewsets, permissions
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework_extensions.cache.decorators import cache_response
-
 from . import models
 from . import serializers
 

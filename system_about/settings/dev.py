@@ -53,6 +53,8 @@ INSTALLED_APPS = [
     'django_minio_backend',
     # 软删除
     'softdelete',
+    # django-filter
+    'django_filters',
     # DRF
     'rest_framework',
     # 文档
@@ -198,6 +200,11 @@ MINIO_POLICY_HOOKS: List[Tuple[str, dict]] = []
 
 # DRF配置
 REST_FRAMEWORK = {
+    # 指定使用django-filter后端
+    'DEFAULT_FILTER_BACKENDS': (
+            'django_filters.rest_framework.DjangoFilterBackend',
+        ),
+
     # 权限配置
     'DEFAULT_PERMISSION_CLASSES': [
         # 'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
@@ -206,6 +213,7 @@ REST_FRAMEWORK = {
         # 指定simplejwt认证后端
         # 'rest_framework_simplejwt.authentication.JWTAuthentication',
     ),
+    #分页器
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
 
 }
