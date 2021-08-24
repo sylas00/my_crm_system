@@ -11,6 +11,10 @@ class CustomerFilter(filters.FilterSet):
     # 查询参数的名字                                字段名字             条件
     my_define_id = filters.NumberFilter(field_name="id", lookup_expr='gte')
 
+    # 实现排序
+    # 查询参数的名字                         要实现排序的字段名
+    order = filters.OrderingFilter(fields=('name', 'created_at'))
+
     class Meta:
         model = CustomerModel
         # 同时指定多个字段 但只支持精确查找
